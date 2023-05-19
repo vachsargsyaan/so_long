@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:49:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/15 19:01:37 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:27:47 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	fill_image_two(t_gamestate *game, char c, int i, int j)
 		mlx_put_image_to_window
 		(game->wind.mlx, game->wind.mlx_win,
 		game->xax.coin, i * 50, j * 50);
+	else if (c == 'M')
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win,
+		game->xax.madara, i * 50, j * 50);
 }
 
 void	fill_image_init(t_gamestate *game)
@@ -48,6 +52,8 @@ void	fill_image_init(t_gamestate *game)
 		(game->wind.mlx, "./player/2.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.enemy = mlx_xpm_file_to_image
 		(game->wind.mlx, "./itachi/1.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.madara = mlx_xpm_file_to_image
+		(game->wind.mlx, "./madara/0.xpm", &game->xax.witdh, &game->xax.len);
 }
 
 void	fill_image(t_gamestate *game)
@@ -98,61 +104,41 @@ int	move(int keystate, t_gamestate *game)
 		if (game->map[game->player.y - 1][game->player.x] != '1'
 			&& game->map[game->player.y - 1][game->player.x] != 'V')
 		{
-			game->map[game->player.y - 1][game->player.x] = 'P';
-			game->map[game->player.y][game->player.x] = '0';
-			game->player.y--;
+			if (game->map[game->player.y - 1][game->player.x] != 'E' || game->number_coins == 0)
+			{
+				if (game->map[game->player.y - 1][game->player.x] == 'C')
+					game->number_coins--;
+				if (game->map[game->player.y - 1][game->player.x] == 'E')
+					win(game);
+				game->map[game->player.y - 1][game->player.x] = 'P';
+				game->map[game->player.y][game->player.x] = '0';
+				game->player.y--;
+			}
 		}
 		else if (game->map[game->player.y - 1][game->player.x] == 'V')
-		{
-			printf ("you lose\n");
-			exit (1);
-		}
+			lose();
 	}
 	else if (keystate == 0 || keystate == 123)
 	{
 		if (game->map[game->player.y][game->player.x - 1] != '1'
 			&& game->map[game->player.y][game->player.x - 1] != 'V')
 		{
-			game->map[game->player.y][game->player.x - 1] = 'P';
-			game->map[game->player.y][game->player.x] = '0';
-			game->player.x--;
+			if (game->map[game->player.y][game->player.x - 1] != 'E' || game->number_coins == 0)
+			{	
+				if (game->map[game->player.y][game->player.x - 1] == 'C')
+					game->number_coins--;
+				if (game->map[game->player.y][game->player.x - 1] == 'E')
+					win(game);
+				game->map[game->player.y][game->player.x - 1] = 'P';
+				game->map[game->player.y][game->player.x] = '0';
+				game->player.x--;
+			}
 		}
 		else if (game->map[game->player.y][game->player.x - 1] == 'V')
-		{
-			printf ("you lose\n");
-			exit (1);
-		}
+			lose();
 	}
-	else if (keystate == 2 || keystate == 124)
-	{
-		if (game->map[game->player.y][game->player.x + 1] != '1'
-			&& game->map[game->player.y][game->player.x + 1] != 'V')
-		{
-			game->map[game->player.y][game->player.x + 1] = 'P';
-			game->map[game->player.y][game->player.x] = '0';
-			game->player.x++;
-		}
-		else if (game->map[game->player.y][game->player.x + 1] == 'V')
-		{
-			printf ("you lose\n");
-			exit (1);
-		}
-	}
-	else if (keystate == 1 || keystate == 125)
-	{
-		if (game->map[game->player.y + 1][game->player.x] != '1'
-			&& game->map[game->player.y + 1][game->player.x] != 'V')
-		{
-			game->map[game->player.y + 1][game->player.x] = 'P';
-			game->map[game->player.y][game->player.x] = '0';
-			game->player.y++;
-		}
-		else if (game->map[game->player.y + 1][game->player.x] == 'V')
-		{
-			printf ("you lose\n");
-			exit (1);
-		}
-	}
+	else
+		move_two(keystate, game);
 	fill_image(game);
 	return (0);
 }

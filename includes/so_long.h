@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:00:09 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/15 18:41:47 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:30:39 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ typedef struct s_pers
 	void	*coin;
 	void	*ft_exit;
 	void	*enemy;
+	void	*madara;
 	void	*xot;
 	void	*tuf;
+	void	*Dominik;
 }t_pers;
 
 typedef struct s_open
@@ -99,5 +101,7 @@ void	fill_image(t_gamestate *game);
 void	fill_image_init(t_gamestate *game);
 void	number_of_coins(t_gamestate *game);
 int		*draw(t_gamestate *game);
-
+void	move_two(int keystate, t_gamestate *game);
+void	lose(void);
+void	win(t_gamestate *game);
 #endif
