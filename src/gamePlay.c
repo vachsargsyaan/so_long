@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:49:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/16 18:27:47 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/20 17:04:49 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	fill_image_two(t_gamestate *game, char c, int i, int j)
 
 void	fill_image_init(t_gamestate *game)
 {
+
 	game->xax.witdh = 50;
 	game->xax.len = 50;
 	game->xax.xot = mlx_xpm_file_to_image
@@ -102,7 +103,7 @@ int	move(int keystate, t_gamestate *game)
 	if (keystate == 13 || keystate == 126)
 	{
 		if (game->map[game->player.y - 1][game->player.x] != '1'
-			&& game->map[game->player.y - 1][game->player.x] != 'V')
+			&& game->map[game->player.y - 1][game->player.x] != 'V' && game->map[game->player.y - 1][game->player.x] != 'M')
 		{
 			if (game->map[game->player.y - 1][game->player.x] != 'E' || game->number_coins == 0)
 			{
@@ -115,13 +116,13 @@ int	move(int keystate, t_gamestate *game)
 				game->player.y--;
 			}
 		}
-		else if (game->map[game->player.y - 1][game->player.x] == 'V')
+		else if (game->map[game->player.y - 1][game->player.x] == 'V' || game->map[game->player.y - 1][game->player.x] == 'M')
 			lose();
 	}
 	else if (keystate == 0 || keystate == 123)
 	{
 		if (game->map[game->player.y][game->player.x - 1] != '1'
-			&& game->map[game->player.y][game->player.x - 1] != 'V')
+			&& game->map[game->player.y][game->player.x - 1] != 'V' && game->map[game->player.y][game->player.x - 1] != 'M')
 		{
 			if (game->map[game->player.y][game->player.x - 1] != 'E' || game->number_coins == 0)
 			{	
@@ -134,7 +135,7 @@ int	move(int keystate, t_gamestate *game)
 				game->player.x--;
 			}
 		}
-		else if (game->map[game->player.y][game->player.x - 1] == 'V')
+		else if (game->map[game->player.y][game->player.x - 1] == 'V'|| game->map[game->player.y][game->player.x - 1] == 'M')
 			lose();
 	}
 	else
