@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:00:09 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/20 16:56:49 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:46:03 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,22 @@ typedef struct s_pers
 	int		witdh;
 	void	*player;
 	void	*coin;
+	void	*coin1;
+	void	*coin2;
+	void	*coin3;
+	void	*coin4;
+	void	*coin5;
+	void	*coin6;
+	void	*coin7;
+	void	*coin8;
+	void	*coin9;
+	void	*coin10;
 	void	*ft_exit;
 	void	*enemy;
 	void	*madara;
+	void	*madara1;
+	void	*madara2;
+	void	*madara3;
 	void	*xot;
 	void	*tuf;
 	void	*Dominik;
@@ -43,7 +56,6 @@ typedef struct s_open
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*mlx_ptr;
 	void	*img;
 	char	*relative_path;
 	int		img_width;
@@ -104,4 +116,7 @@ int		*draw(t_gamestate *game);
 void	move_two(int keystate, t_gamestate *game);
 void	lose(void);
 void	win(t_gamestate *game);
+void	ft_madara(t_gamestate *game, int i, int j);
+void	image_init_coin(t_gamestate *game);
+void	coin_anim(t_gamestate *game, int i, int j);
 #endif

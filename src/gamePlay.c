@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:49:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/20 17:04:49 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:40:37 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,9 @@ void	fill_image_two(t_gamestate *game, char c, int i, int j)
 		(game->wind.mlx, game->wind.mlx_win,
 		game->xax.enemy, i * 50, j * 50);
 	else if (c == 'C')
-		mlx_put_image_to_window
-		(game->wind.mlx, game->wind.mlx_win,
-		game->xax.coin, i * 50, j * 50);
+		coin_anim(game, i, j);
 	else if (c == 'M')
-		mlx_put_image_to_window
-		(game->wind.mlx, game->wind.mlx_win,
-		game->xax.madara, i * 50, j * 50);
+		ft_madara(game, i, j);
 }
 
 void	fill_image_init(t_gamestate *game)
@@ -45,17 +41,25 @@ void	fill_image_init(t_gamestate *game)
 		(game->wind.mlx, "./tuf1.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.tuf = mlx_xpm_file_to_image
 		(game->wind.mlx, "./wall.xpm", &game->xax.witdh, &game->xax.len);
-	game->xax.coin = mlx_xpm_file_to_image
-		(game->wind.mlx, "./coin/1.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.ft_exit = mlx_xpm_file_to_image
 		(game->wind.mlx, "./nezuko/nez3.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.player = mlx_xpm_file_to_image
-		(game->wind.mlx, "./player/2.xpm", &game->xax.witdh, &game->xax.len);
+		(game->wind.mlx, "./player/0.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.enemy = mlx_xpm_file_to_image
 		(game->wind.mlx, "./itachi/1.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.madara = mlx_xpm_file_to_image
 		(game->wind.mlx, "./madara/0.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.madara1 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./madara/1.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.madara2 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./madara/2.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.madara3 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./madara/3.xpm", &game->xax.witdh, &game->xax.len);
+	image_init_coin(game);
+	// game->xax.coin = mlx_xpm_file_to_image
+	// 	(game->wind.mlx, "./coin/0.xpm", &game->xax.witdh, &game->xax.len);
 }
+
 
 void	fill_image(t_gamestate *game)
 {
@@ -93,7 +97,7 @@ void	fill_image(t_gamestate *game)
 //  }
 // int	*draw(t_gamestate * game)
 // {
-// 	mlx_clear_window(game->mlx.ptr, game->mlx.win);//jnji patuhnay   
+// 	mlx_clear_window(game->wind.mlx, game->wind.mlx.win);//jnji patuhnay   
 // 	mlx_put_image(&game);//nkari nory
 // 	return(0);
 // }
@@ -148,20 +152,23 @@ int	close_win(t_gamestate *game)
 {
 	mlx_clear_window(game->wind.mlx, game->wind.mlx_win);
 	mlx_destroy_window(game->wind.mlx, game->wind.mlx_win);
+	exit (0);
 	return (0);
 }
 
 int	loop_for_mlx(t_gamestate *game)
 {
+	// (void)game;
 	mlx_clear_window(game->wind.mlx, game->wind.mlx_win);
+	fill_image(game);
 	return (0);
 }
 
 void	mlx_hooks(t_gamestate *game)
 {
 	mlx_hook(game->wind.mlx_win, 2, 0, move, game);
-	// mlx_hook((*game)->wind.win, 17, 0, close_win, game);
-	// mlx_loop_hook((*game)->wind.win, loop_for_mlx, game);
+	mlx_hook(game->wind.mlx_win, 17, 0, close_win, game);
+	mlx_loop_hook(game->wind.mlx, loop_for_mlx, game);
 	mlx_loop(game->wind.mlx);
 }
 
@@ -175,5 +182,5 @@ void	ft_open(t_gamestate *game)
 	fill_image(game);
 	mlx_hooks(game);
 	// mlx_hook(game->wind.mlx_win, 2, 1l << 0, &keypress, &game);
-	// mlx_loop_hook(game->wind.mlx_ptr, draw, &game);
+	// mlx_loop_hook(game->wind.mlx, draw, &game);
 }
