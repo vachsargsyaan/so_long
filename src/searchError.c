@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:16:02 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/15 18:39:51 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 18:11:36 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	search_player(char **map)
 		i++;
 	}
 	ft_printf("Error");
+	system("leaks so_long");
 	exit (0);
 }
 

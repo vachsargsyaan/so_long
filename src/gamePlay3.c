@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:22:01 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/22 20:34:22 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 17:41:42 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,4 +167,63 @@ void	image_init_coin(t_gamestate *game)
 		(game->wind.mlx, "./coin/9.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.coin10 = mlx_xpm_file_to_image
 		(game->wind.mlx, "./coin/10.xpm", &game->xax.witdh, &game->xax.len);
+}
+
+void	image_init_playe(t_gamestate *game)
+{
+	game->xax.player = mlx_xpm_file_to_image
+		(game->wind.mlx, "./player/0.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.player1 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./player/1.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.player2 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./player/2.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.player3 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./player/3.xpm", &game->xax.witdh, &game->xax.len);
+	game->xax.player4 = mlx_xpm_file_to_image
+		(game->wind.mlx, "./player/4.xpm", &game->xax.witdh, &game->xax.len);
+}
+
+void	ft_player(t_gamestate *game)
+{
+	static int	i = -1;
+
+	if (i <= 20 && (game->keystate == 0 || game->keystate == 123))
+	{
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player1,
+		game->player.x * 50, game->player.y * 50);
+		i++;
+	}
+	else if (i <= 20 && (game->keystate == 0 || game->keystate == 123))
+	{
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player2,
+		game->player.x * 50, game->player.y * 50);
+		i++;
+	}
+	else if (i <= 30 && (game->keystate == 0 || game->keystate == 123))
+	{
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player3,
+		game->player.x * 50, game->player.y * 50);
+		i++;
+	}
+	else if (i < 41 && (game->keystate == 0 || game->keystate == 123))
+	{
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player4,
+		game->player.x * 50, game->player.y * 50);
+		i = 0;
+	}
+	else if (i < 41 && (game->keystate == 0 || game->keystate == 123))
+	{
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player4,
+		game->player.x * 50, game->player.y * 50);
+		i = 0;
+	}
+	else
+		mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.player,
+		game->player.x * 50, game->player.y * 50);
 }

@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:21:50 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/16 16:37:45 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:12:55 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_error(void)
 {
 	ft_printf("Error");
+	pause();
 	exit (0);
 }
 
@@ -64,7 +65,6 @@ void	ft_chek(char *s)
 {
 	char	*a;
 
-	a = malloc(sizeof(char) * 5);
 	a = ".ber";
 	while (*s != '.')
 		s++;
@@ -110,9 +110,12 @@ int	main(int argc, char **argv)
 		if (game.line == NULL)
 			break ;
 		game.res = ft_strjoin(game.res, game.line);
+		free(game.line);
 	}
 	game.res = ft_strtrim(game.res, "\n");
 	ft_help(game.res);
 	game.map = ft_split(game.res, '\n');
 	ft_call(&game);
+
+	return (0);
 }

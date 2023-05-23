@@ -8,7 +8,7 @@ INCS			= -Iincludes
 CC				= cc 
 LINKERS			= -lmlx -framework  OpenGL -framework AppKit
 RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror  -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror
 MK				= mkdir -p
 
 all:			$(OBJ_DIR) $(NAME)

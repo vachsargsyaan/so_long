@@ -6,15 +6,29 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:09:39 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/22 20:46:15 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:32:14 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	lose(void)
+void	lose(t_gamestate *game)
 {
+	int i = 0;
 	ft_printf("set your heart ablaze\n");
+	while (game->map[i])
+	{
+		free(game->map[i]);
+		i++;
+	}
+	i = 0;
+	while (game->test_map[i])
+	{
+		free(game->test_map[i]);
+		i++;
+	}
+	free(game->res);
+	system("leaks so_long");
 	exit(1);
 }
 
@@ -39,6 +53,7 @@ void	win(t_gamestate *game)
 	mlx_win = mlx_new_window(mlx, 960, 540, "Hello world!");
 	game->xax.Dominik = mlx_xpm_file_to_image(mlx, "./Dom.xpm", &img_width, &img_height);
 	mlx_put_image_to_window(mlx, mlx_win, game->xax.Dominik, 0, 0);
+
 	mlx_loop(mlx);
 }
 
@@ -61,7 +76,7 @@ void	move_two(int keystate, t_gamestate *game)
 			}
 		}
 		else if (game->map[game->player.y][game->player.x + 1] == 'V' || game->map[game->player.y][game->player.x + 1] == 'M')
-			lose();
+			lose(game);
 	}
 	else if (keystate == 1 || keystate == 125)
 	{
@@ -80,6 +95,6 @@ void	move_two(int keystate, t_gamestate *game)
 			}
 		}
 		else if (game->map[game->player.y + 1][game->player.x] == 'V' || game->map[game->player.y + 1][game->player.x] == 'M' )
-			lose();
+			lose(game);
 	}
 }

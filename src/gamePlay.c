@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:49:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/22 20:40:37 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:40:06 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	fill_image_two(t_gamestate *game, char c, int i, int j)
 			(game->wind.mlx, game->wind.mlx_win,
 			game->xax.ft_exit, i * 50, j * 50);
 	else if (c == 'P')
-		mlx_put_image_to_window
-			(game->wind.mlx, game->wind.mlx_win, game->xax.player,
-			game->player.x * 50, game->player.y * 50);
+		ft_player(game);
 	else if (c == 'V')
 		mlx_put_image_to_window
 		(game->wind.mlx, game->wind.mlx_win,
@@ -30,6 +28,9 @@ void	fill_image_two(t_gamestate *game, char c, int i, int j)
 		coin_anim(game, i, j);
 	else if (c == 'M')
 		ft_madara(game, i, j);
+		// mlx_put_image_to_window
+			// (game->wind.mlx, game->wind.mlx_win, game->xax.player,
+			// game->player.x * 50, game->player.y * 50);
 }
 
 void	fill_image_init(t_gamestate *game)
@@ -43,8 +44,6 @@ void	fill_image_init(t_gamestate *game)
 		(game->wind.mlx, "./wall.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.ft_exit = mlx_xpm_file_to_image
 		(game->wind.mlx, "./nezuko/nez3.xpm", &game->xax.witdh, &game->xax.len);
-	game->xax.player = mlx_xpm_file_to_image
-		(game->wind.mlx, "./player/0.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.enemy = mlx_xpm_file_to_image
 		(game->wind.mlx, "./itachi/1.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.madara = mlx_xpm_file_to_image
@@ -55,9 +54,8 @@ void	fill_image_init(t_gamestate *game)
 		(game->wind.mlx, "./madara/2.xpm", &game->xax.witdh, &game->xax.len);
 	game->xax.madara3 = mlx_xpm_file_to_image
 		(game->wind.mlx, "./madara/3.xpm", &game->xax.witdh, &game->xax.len);
+	image_init_playe(game);
 	image_init_coin(game);
-	// game->xax.coin = mlx_xpm_file_to_image
-	// 	(game->wind.mlx, "./coin/0.xpm", &game->xax.witdh, &game->xax.len);
 }
 
 
@@ -104,6 +102,7 @@ void	fill_image(t_gamestate *game)
 
 int	move(int keystate, t_gamestate *game)
 {
+	game->keystate = keystate;
 	if (keystate == 13 || keystate == 126)
 	{
 		if (game->map[game->player.y - 1][game->player.x] != '1'
@@ -121,7 +120,7 @@ int	move(int keystate, t_gamestate *game)
 			}
 		}
 		else if (game->map[game->player.y - 1][game->player.x] == 'V' || game->map[game->player.y - 1][game->player.x] == 'M')
-			lose();
+			lose(game);
 	}
 	else if (keystate == 0 || keystate == 123)
 	{
@@ -140,7 +139,7 @@ int	move(int keystate, t_gamestate *game)
 			}
 		}
 		else if (game->map[game->player.y][game->player.x - 1] == 'V'|| game->map[game->player.y][game->player.x - 1] == 'M')
-			lose();
+			lose(game);
 	}
 	else
 		move_two(keystate, game);
@@ -152,6 +151,7 @@ int	close_win(t_gamestate *game)
 {
 	mlx_clear_window(game->wind.mlx, game->wind.mlx_win);
 	mlx_destroy_window(game->wind.mlx, game->wind.mlx_win);
+	system("leaks so_long");
 	exit (0);
 	return (0);
 }

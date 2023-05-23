@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 16:46:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/04/25 18:12:53 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:12:34 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_strjoin(char *s1, char const *s2)
 	}
 	while (s2 && s2[j])
 		str[i++] = s2[j++];
-	str[i] = 0;
+	str[i] = '\0';
 	if (s1)
 		free(s1);
 	return (str);
