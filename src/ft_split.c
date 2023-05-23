@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 16:26:52 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 20:39:19 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:39:54 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ char	**ft_split(char const *s, char c)
 		return (0);
 	}
 	p[a - 1] = NULL;
-	p = ft_erkar(s, c, p);
+	ft_erkar(s, c, p);
 	return (p);
 }

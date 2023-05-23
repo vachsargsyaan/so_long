@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:21:50 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 20:12:55 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:14:26 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	main(int argc, char **argv)
 {
 	int			fd;
 	int			i;
+	char*		tmp;
 	t_gamestate	game;
 
 	game.line = NULL;
@@ -112,7 +113,9 @@ int	main(int argc, char **argv)
 		game.res = ft_strjoin(game.res, game.line);
 		free(game.line);
 	}
+	tmp =game.res;
 	game.res = ft_strtrim(game.res, "\n");
+	free(tmp);
 	ft_help(game.res);
 	game.map = ft_split(game.res, '\n');
 	ft_call(&game);

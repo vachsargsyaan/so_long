@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 19:00:00 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 20:11:24 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:43:01 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_strdup(const char *s1)
 	str = (char *)malloc(sizeof(char) * len);
 	if (!str)
 		return (0);
-	str = ft_memcpy(str, s1, len);
+	ft_memcpy(str, s1, len);
 	return (str);
 }
 
