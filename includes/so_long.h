@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:00:09 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 19:40:32 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:44:39 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef struct s_pers
 {
 	int		len;
 	int		witdh;
+	void	*right;
+	void	*right1;
+	void	*right2;
+	void	*right3;
 	void	*player;
 	void	*player1;
 	void	*player2;
@@ -53,7 +57,8 @@ typedef struct s_pers
 	void	*madara3;
 	void	*xot;
 	void	*tuf;
-	void	*Dominik;
+	void	*dominik;
+	void	*rengoku;
 }t_pers;
 
 typedef struct s_open
@@ -84,6 +89,10 @@ typedef struct s_gamestate
 	t_pers	xax;
 	int		number_coins;
 	int		keystate;
+	int		newwin;
+	int		x;
+	int		count;
+	int		madara_count;
 }t_gamestate;
 
 char	*get_next_line(int fd);
@@ -126,5 +135,26 @@ void	image_init_coin(t_gamestate *game);
 void	coin_anim(t_gamestate *game, int i, int j);
 void	image_init_playe(t_gamestate *game);
 void	ft_player(t_gamestate *game);
+void	destroy_image(t_gamestate *game);
+void	destroy_image1(t_gamestate *game);
+void	destroy_image2(t_gamestate *game);
+int		close_win(t_gamestate *game);
+int		esc(int keystate, t_gamestate *game);
+void	ft_right(t_gamestate *game);
+void	fill_image_two(t_gamestate *game, char c, int i, int j);
+void	move_three(int keystate, t_gamestate *game);
+int		loop_for_mlx(t_gamestate *game);
+void	move_four(int keystate, t_gamestate *game);
+void	ft_freez(t_gamestate *game);
+void	move_five(int keystate, t_gamestate *game);
+void	ft_madara1(t_gamestate *game, int i, int j, int *z);
+void	coin_anim1(t_gamestate *game, int i, int j, int *z);
+void	ft_player1(t_gamestate *game, int *i);
+void	ft_right1(t_gamestate *game, int *i);
+void	coin_anim2(t_gamestate *game, int i, int j, int *z);
+void	coin_anim3(t_gamestate *game, int i, int j, int *z);
+void	ft_ft(t_gamestate *game, int fd);
+char	*ft_itoa(int n);
+void	count(t_gamestate *game);
 
 #endif

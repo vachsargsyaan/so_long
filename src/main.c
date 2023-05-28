@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:21:50 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 21:14:26 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:00:23 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_error(void)
 {
 	ft_printf("Error");
-	pause();
-	exit (0);
+	system("leaks so_long");
+	exit (1);
 }
 
 void	ft_eva(char **s)
@@ -91,13 +91,15 @@ void	ft_chek(char *s)
 int	main(int argc, char **argv)
 {
 	int			fd;
-	int			i;
-	char*		tmp;
+	char		*tmp;
 	t_gamestate	game;
 
+	game.newwin = 1;
+	game.x = 1;
 	game.line = NULL;
 	game.res = NULL;
-	i = 0;
+	game.count = 0;
+	game.madara_count = 0;
 	if (argc == 2)
 		ft_chek(argv[1]);
 	else
@@ -105,20 +107,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		ft_error();
-	while (1)
-	{
-		game.line = get_next_line(fd);
-		if (game.line == NULL)
-			break ;
-		game.res = ft_strjoin(game.res, game.line);
-		free(game.line);
-	}
-	tmp =game.res;
+	ft_ft(&game, fd);
+	tmp = game.res;
 	game.res = ft_strtrim(game.res, "\n");
 	free(tmp);
 	ft_help(game.res);
 	game.map = ft_split(game.res, '\n');
 	ft_call(&game);
-
 	return (0);
 }

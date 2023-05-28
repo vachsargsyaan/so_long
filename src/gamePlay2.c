@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:09:39 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/23 20:49:01 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:00:52 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,54 @@
 
 void	lose(t_gamestate *game)
 {
-	int i = 0;
+	int		img_width;
+	int		img_height;
+
+	game->newwin = 0;
+	img_width = 500;
+	img_height = 500;
 	ft_printf("set your heart ablaze\n");
-	while (game->map[i])
-	{
-		free(game->map[i]);
-		i++;
-	}
-	i = 0;
-	while (game->test_map[i])
-	{
-		free(game->test_map[i]);
-		i++;
-	}
-	free(game->res);
+	destroy_image(game);
+	ft_freez(game);
+	game->wind.mlx = mlx_init();
+	game->wind.mlx_win = mlx_new_window
+		(game->wind.mlx, 500, 500, "Hello world!");
+	game->xax.rengoku = mlx_xpm_file_to_image
+		(game->wind.mlx, "./Rengoku.xpm", &img_width, &img_height);
+	mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.rengoku, 0, 0);
+	game->x = 0;
+	mlx_hook(game->wind.mlx_win, 17, 0, &close_win, game);
+	mlx_hook(game->wind.mlx_win, 2, 0, &esc, game);
+	mlx_loop(game->wind.mlx);
 	system("leaks so_long");
-	exit(1);
+	exit(0);
 }
 
 void	win(t_gamestate *game)
 {
-	void	*mlx;
-	void	*mlx_win;
-	int		img_width = 960;
-	int		img_height = 540;
-	ft_printf("nothing is stronger than family");
-	mlx_destroy_image(game->wind.mlx, game->xax.coin);
-	mlx_destroy_image(game->wind.mlx, game->xax.xot);
-	mlx_destroy_image(game->wind.mlx, game->xax.enemy);
-	mlx_destroy_image(game->wind.mlx, game->xax.ft_exit);
-	mlx_destroy_image(game->wind.mlx, game->xax.madara);
-	mlx_destroy_image(game->wind.mlx, game->xax.player);
-	mlx_destroy_image(game->wind.mlx, game->xax.tuf);
-	mlx_destroy_window(game->wind.mlx, game->wind.mlx_win);	
-	
+	int		img_width;
+	int		img_height;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 960, 540, "Hello world!");
-	game->xax.Dominik = mlx_xpm_file_to_image(mlx, "./Dom.xpm", &img_width, &img_height);
-	mlx_put_image_to_window(mlx, mlx_win, game->xax.Dominik, 0, 0);
-
-	mlx_loop(mlx);
+	game->newwin = 0;
+	img_width = 960;
+	img_height = 540;
+	ft_printf("nothing is stronger than family\n");
+	destroy_image(game);
+	ft_freez(game);
+	game->x = 2;
+	game->wind.mlx = mlx_init();
+	game->wind.mlx_win = mlx_new_window
+		(game->wind.mlx, 960, 540, "Hello world!");
+	game->xax.dominik = mlx_xpm_file_to_image
+		(game->wind.mlx, "./Dom.xpm", &img_width, &img_height);
+	mlx_put_image_to_window
+		(game->wind.mlx, game->wind.mlx_win, game->xax.dominik, 0, 0);
+	mlx_hook(game->wind.mlx_win, 17, 0, &close_win, game);
+	mlx_hook(game->wind.mlx_win, 2, 0, &esc, game);
+	mlx_loop(game->wind.mlx);
+	system("leaks so_long");
+	exit(0);
 }
 
 void	move_two(int keystate, t_gamestate *game)
@@ -62,9 +69,11 @@ void	move_two(int keystate, t_gamestate *game)
 	if (keystate == 2 || keystate == 124)
 	{
 		if (game->map[game->player.y][game->player.x + 1] != '1'
-			&& game->map[game->player.y][game->player.x + 1] != 'V' && game->map[game->player.y][game->player.x + 1] != 'M')
+			&& game->map[game->player.y][game->player.x + 1] != 'V'
+				&& game->map[game->player.y][game->player.x + 1] != 'M')
 		{
-			if (game->map[game->player.y][game->player.x + 1] != 'E' || game->number_coins == 0)
+			if (game->map[game->player.y][game->player.x + 1] != 'E'
+				|| game->number_coins == 0)
 			{
 				if (game->map[game->player.y][game->player.x + 1] == 'C')
 					game->number_coins--;
@@ -73,28 +82,40 @@ void	move_two(int keystate, t_gamestate *game)
 				game->map[game->player.y][game->player.x + 1] = 'P';
 				game->map[game->player.y][game->player.x] = '0';
 				game->player.x++;
+				count(game);
 			}
 		}
-		else if (game->map[game->player.y][game->player.x + 1] == 'V' || game->map[game->player.y][game->player.x + 1] == 'M')
+		else if (game->map[game->player.y][game->player.x + 1] == 'V'
+			|| game->map[game->player.y][game->player.x + 1] == 'M')
 			lose(game);
 	}
-	else if (keystate == 1 || keystate == 125)
+	else
+		move_three(keystate, game);
+}
+
+void	move_five(int keystate, t_gamestate *game)
+{
+	if (keystate == 1 || keystate == 125)
 	{
 		if (game->map[game->player.y + 1][game->player.x] != '1'
-			&& game->map[game->player.y + 1][game->player.x] != 'V' && game->map[game->player.y + 1][game->player.x] != 'M')
+			&& game->map[game->player.y + 1][game->player.x] != 'V'
+				&& game->map[game->player.y + 1][game->player.x] != 'M')
 		{
-			if (game->map[game->player.y + 1][game->player.x] != 'E' || game->number_coins == 0)
+			if (game->map[game->player.y + 1][game->player.x] != 'E'
+			|| game->number_coins == 0)
 			{
 				if (game->map[game->player.y + 1][game->player.x] == 'C')
-						game->number_coins--;	
+					game->number_coins--;
 				if (game->map[game->player.y + 1][game->player.x] == 'E')
 					win(game);
 				game->map[game->player.y + 1][game->player.x] = 'P';
 				game->map[game->player.y][game->player.x] = '0';
 				game->player.y++;
+				count(game);
 			}
 		}
-		else if (game->map[game->player.y + 1][game->player.x] == 'V' || game->map[game->player.y + 1][game->player.x] == 'M' )
+		else if (game->map[game->player.y + 1][game->player.x] == 'V'
+			|| game->map[game->player.y + 1][game->player.x] == 'M' )
 			lose(game);
 	}
 }

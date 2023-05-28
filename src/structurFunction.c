@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:11:08 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/15 18:59:34 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:59:25 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,25 @@ void	number_of_coins(t_gamestate *game)
 		{
 			if (game->map[j][i] == 'C')
 				c++;
+			else if (game->map[j][i] == 'M')
+				game->madara_count++;
 			i++;
 		}
 		j++;
 	}
+	if (c == 0)
+		ft_error();
 	game->number_coins = c;
+}
+
+void	ft_ft(t_gamestate *game, int fd)
+{
+	while (1)
+	{
+		game->line = get_next_line(fd);
+		if (game->line == NULL)
+			break ;
+		game->res = ft_strjoin(game->res, game->line);
+		free(game->line);
+	}
 }
