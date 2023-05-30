@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:00:09 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 18:44:39 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:00:55 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_gamestate
 	int		x;
 	int		count;
 	int		madara_count;
+	int		fd;
+	char	*tmp;
 }t_gamestate;
 
 char	*get_next_line(int fd);
@@ -156,5 +158,6 @@ void	coin_anim3(t_gamestate *game, int i, int j, int *z);
 void	ft_ft(t_gamestate *game, int fd);
 char	*ft_itoa(int n);
 void	count(t_gamestate *game);
+void	ft_search2(char **str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 17:06:25 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 18:49:25 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:52:50 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ void	coin_anim3(t_gamestate *game, int i, int j, int *z)
 void	count(t_gamestate *game)
 {
 	game->count++;
-	ft_printf("%d\n", game->count);
 }

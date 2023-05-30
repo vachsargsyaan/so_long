@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 16:09:39 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 21:00:52 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:44:49 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	lose(t_gamestate *game)
 	mlx_hook(game->wind.mlx_win, 17, 0, &close_win, game);
 	mlx_hook(game->wind.mlx_win, 2, 0, &esc, game);
 	mlx_loop(game->wind.mlx);
-	system("leaks so_long");
 	exit(0);
 }
 
@@ -60,7 +59,6 @@ void	win(t_gamestate *game)
 	mlx_hook(game->wind.mlx_win, 17, 0, &close_win, game);
 	mlx_hook(game->wind.mlx_win, 2, 0, &esc, game);
 	mlx_loop(game->wind.mlx);
-	system("leaks so_long");
 	exit(0);
 }
 

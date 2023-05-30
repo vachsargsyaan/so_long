@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:11:08 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 20:59:25 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:43:49 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,6 @@ void	ft_ft(t_gamestate *game, int fd)
 		game->res = ft_strjoin(game->res, game->line);
 		free(game->line);
 	}
+	if (game->res == NULL)
+		ft_error();
 }

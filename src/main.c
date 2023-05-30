@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 18:21:50 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 21:00:23 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:05:10 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_error(void)
 {
 	ft_printf("Error");
-	system("leaks so_long");
 	exit (1);
 }
 
@@ -90,8 +89,6 @@ void	ft_chek(char *s)
 
 int	main(int argc, char **argv)
 {
-	int			fd;
-	char		*tmp;
 	t_gamestate	game;
 
 	game.newwin = 1;
@@ -104,15 +101,17 @@ int	main(int argc, char **argv)
 		ft_chek(argv[1]);
 	else
 		ft_error();
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	game.fd = open(argv[1], O_RDONLY);
+	if (game.fd == -1)
 		ft_error();
-	ft_ft(&game, fd);
-	tmp = game.res;
+	ft_ft(&game, game.fd);
+	game.tmp = game.res;
 	game.res = ft_strtrim(game.res, "\n");
-	free(tmp);
+	free(game.tmp);
 	ft_help(game.res);
 	game.map = ft_split(game.res, '\n');
+	if (!game.res || !*game.map)
+		ft_error();
 	ft_call(&game);
 	return (0);
 }

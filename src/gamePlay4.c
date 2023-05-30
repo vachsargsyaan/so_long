@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:12:32 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 21:00:38 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:56:41 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	close_win(t_gamestate *game)
 		destroy_image1(game);
 	if (game->x == 2)
 		destroy_image2(game);
-	system("leaks so_long");
 	exit (0);
 	return (0);
 }
@@ -110,10 +109,10 @@ int	loop_for_mlx(t_gamestate *game)
 	if (game->newwin)
 	{
 		mlx_clear_window(game->wind.mlx, game->wind.mlx_win);
-		str = ft_itoa(game->count);
 		fill_image(game);
+		str = ft_itoa(game->count);
 		mlx_string_put(game->wind.mlx, game->wind.mlx_win,
-			1 * 24, 1 * 15, 0x000000, str);
+			50, 15, 0x0FFFFFF, str);
 		free(str);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:49:06 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 21:01:02 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:05:28 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,10 @@ int	move(int keystate, t_gamestate *game)
 	if (keystate == 53)
 	{
 		destroy_image(game);
-		system("leaks so_long");
 		exit (0);
 	}
 	else
 		move_two(keystate, game);
-	fill_image(game);
 	return (0);
 }
 

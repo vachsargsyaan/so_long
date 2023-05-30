@@ -6,7 +6,7 @@
 /*   By: vacsargs <vacsargs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:16:02 by vacsargs          #+#    #+#             */
-/*   Updated: 2023/05/28 21:00:20 by vacsargs         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:44:58 by vacsargs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	search_player(char **map)
 		i++;
 	}
 	ft_printf("Error");
-	system("leaks so_long");
 	exit (0);
 }
 
@@ -89,12 +88,13 @@ void	player_can_win(char **map)
 		i = 0;
 		while (map[j][i])
 		{
-			if (map[j][i] == 'P' || map[j][i] == 'E' || map[j][i] == 'C')
+			if (map[j][i] == 'P' || map[j][i] == 'C')
 				ft_error();
 			i++;
 		}
 		j++;
 	}
+	ft_search2(map);
 }
 
 void	ft_call(t_gamestate	*game)
